@@ -1,18 +1,23 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import axios from "axios";
+import "./App.css";
 
 class App extends Component {
+  state = {
+    locations: []
+  };
+  componentDidMount() {
+    axios.get(`http://localhost:3001/location`).then(res => {
+      const locations = res.data;
+      console.log(res.data);
+      this.setState({ locations });
+      // console.log(this.state.location);
+    });
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>Hello World</h1>
       </div>
     );
   }
