@@ -9,9 +9,8 @@ class App extends Component {
   componentDidMount() {
     axios.get(`http://localhost:3001/location`).then(res => {
       const locations = res.data;
-      console.log(res.data);
       this.setState({ locations });
-      // console.log(this.state.location);
+      console.log(this.state.locations);
     });
   }
   render() {

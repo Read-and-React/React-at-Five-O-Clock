@@ -18,6 +18,13 @@ Bundler.require(*Rails.groups)
 
 module ReactAtFiveOClock
   class Application < Rails::Application
+    # see gem page for more examples
+    config.middleware.insert_before 0, Rack::Cors do
+     allow do
+       origins '*'
+       resource '*', headers: :any, methods: :any
+     end
+    end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
