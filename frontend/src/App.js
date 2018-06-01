@@ -5,10 +5,14 @@ import Toolbar from "./components/Toolbar";
 import "./App.css";
 
 class App extends Component {
-  state = {
-    locations: [],
-    cities: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      locations: [],
+      cities: ""
+    };
+  }
+
   componentDidMount() {
     axios.get(`http://localhost:3001/location`).then(res => {
       const locations = res.data;
@@ -23,10 +27,13 @@ class App extends Component {
     return (
       <div className="App">
         
-        <Toolbar />
+        <Toolbar 
+          cities={this.state.cities}
+        />
       </div>
     );
   }
 }
 
 export default App;
+
