@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import Toolbar from "./components/Toolbar";
 import "./App.css";
 
 class App extends Component {
@@ -20,7 +22,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>{this.state.cities}</h1>
+        
+        <Toolbar />
       </div>
     );
   }
