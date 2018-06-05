@@ -8,32 +8,25 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      locations: [],
-      cities: ""
+      cityNames: []
     };
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3001/location`).then(res => {
-      const locations = res.data;
-      const cities = locations.map(c => c.city);
-      this.setState({ locations });
-      this.setState({ cities });
-      console.log(this.state.locations);
-      console.log(this.state.cities);
-    });
+    fetch(`http://localhost:3001/location`)
+      .then(response => {
+        return response.json();
+      })
+      .then(jsonResults => {
+        this.setState({
+          cityNames: jsonResults.map(location => location.city)
+        });
+      });
   }
+
   render() {
-    return (
-      <div className="App">
-        
-        <Toolbar 
-          cities={this.state.cities}
-        />
-      </div>
-    );
+    return <Toolbar cityNames={this.state.cityNames} />;
   }
 }
 
 export default App;
-
