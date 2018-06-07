@@ -1,19 +1,31 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import Toolbar from "./components/Toolbar";
+import "./App.css";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cityNames: [],
+      currentCity: []
+    };
+  }
+
+  async componentDidMount() {
+    const locUrl = `http://localhost:3001/location`;
+    const response = await axios.get(locUrl);
+    const locations = response.data;
+    console.log("locations: ", locations);
+    this.setState({ cityNames: locations.map(location => location.city) });
+    this.setState({ currentCity: this.state.cityNames[0] });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        
+        <Toolbar cityNames={this.state.cityNames} />
       </div>
     );
   }
