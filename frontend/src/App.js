@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Toolbar from "./components/Toolbar";
+import Map from "./components/Map";
 import "./App.css";
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
     return (
       <div className="App">
         <Toolbar cityNames={this.state.cityNames} />
+        <Map />
       </div>
     );
   }
