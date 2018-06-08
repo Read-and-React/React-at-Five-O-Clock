@@ -9,34 +9,18 @@ class Map extends Component {
       coords: {}
     };
   }
-  getLocation() {
-    return Geocode.fromAddress("Chicago, IL").then(
-      response => {
-        const latLng = response.results[0].geometry.location;
-        return latLng;
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  }
 
-  async setLocation() {
-    const latLng = await this.getLocation().then(function(coords) {
-      console.log("coords:", coords);
-    });
+  async componentDidMount() {
+    const currentCity = this.props.currentCity;
+    console.log("currentCity: ", currentCity);
+    const response = await Geocode.fromAddress(currentCity);
+    const latLng = response.results[0].geometry.location;
     this.setState({ coords: latLng });
   }
 
   render() {
-    if (this.state.coords) {
-      console.log(this.state);
-    }
     const CityMap = withGoogleMap(props => (
-      <GoogleMap
-        defaultCenter={{ lat: 41.1, lng: -73.954298 }}
-        defaultZoom={13}
-      />
+      <GoogleMap defaultCenter={this.state.coords} defaultZoom={13} />
     ));
 
     return (

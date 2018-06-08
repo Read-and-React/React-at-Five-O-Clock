@@ -10,7 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       cityNames: [],
-      currentCity: []
+      currentCity: ["London"]
     };
   }
 
@@ -18,7 +18,7 @@ class App extends Component {
     const locUrl = `http://localhost:3001/location`;
     const response = await axios.get(locUrl);
     const locations = response.data;
-    console.log("locations: ", locations);
+    // console.log("locations: ", locations);
     this.setState({ cityNames: locations.map(location => location.city) });
     this.setState({ currentCity: this.state.cityNames[0] });
   }
@@ -27,7 +27,7 @@ class App extends Component {
     return (
       <div className="App">
         <Toolbar cityNames={this.state.cityNames} />
-        <Map />
+        <Map currentCity={this.state.currentCity} />
       </div>
     );
   }
