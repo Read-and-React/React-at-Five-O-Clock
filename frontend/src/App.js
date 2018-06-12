@@ -10,27 +10,31 @@ class App extends Component {
     super(props);
     this.state = {
       cityNames: [],
+      cities: {},
       selectedCityId: 0
     };
   }
-
-  // handleClickCity = id => {
-  //   this.setState({ selectedCityId: clickCity.key});
-  // };
 
   async componentDidMount() {
     const locUrl = `http://localhost:3001/location`;
     const response = await axios.get(locUrl);
     const locations = response.data;
-    // console.log("locations: ", locations);
+    console.log("locations: ", locations);
+    this.setState({ cities: locations });
     this.setState({ cityNames: locations.map(location => location.city) });
     // this.setState({ currentCity: this.state.cityNames[0] });
   }
 
+  handleNewNote = () => {
+    this.setState({ selectedCityId: cities.id });
+  };
+  
   render() {
     return (
       <div className="App">
-        <Toolbar cityNames={this.state.cityNames} />
+        <Toolbar cities={this.state.cities} 
+          onClickCity={this.handleClickCity}
+        />
         <Map 
           cityNames={this.state.cityNames}
           selectedCityId={this.state.selectedCityId}

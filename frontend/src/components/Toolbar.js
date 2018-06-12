@@ -5,9 +5,9 @@ class Toolbar extends Component {
 
 
   citiesArray() {
-    return this.props.cityNames.map(cityName => {
+    return this.props.cities.map(cityName => {
       return (
-        <button key={cityName} onClick={this.props.onClickCity} type="button" className="btn btn-secondary">
+        <button key={cities.id} onClick={this.props.onClickCity} type="button" className="btn btn-secondary">
           {cityName}
         </button>
       );
