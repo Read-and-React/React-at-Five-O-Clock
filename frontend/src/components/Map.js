@@ -10,12 +10,13 @@ class Map extends Component {
     };
   }
 
-  async componentDidMount() {
-    const currentCity = this.props.currentCity;
+  async componentDidUpdate() {
+    const currentCity = this.props.cityNames[this.props.selectedCityId];
     console.log("currentCity: ", currentCity);
     const response = await Geocode.fromAddress(currentCity);
     const latLng = response.results[0].geometry.location;
     this.setState({ coords: latLng });
+    console.log("coords: ", this.state.coords);
   }
 
   render() {

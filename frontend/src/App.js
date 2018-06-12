@@ -10,9 +10,13 @@ class App extends Component {
     super(props);
     this.state = {
       cityNames: [],
-      currentCity: ["London"]
+      selectedCityId: 0
     };
   }
+
+  // handleClickCity = id => {
+  //   this.setState({ selectedCityId: clickCity.key});
+  // };
 
   async componentDidMount() {
     const locUrl = `http://localhost:3001/location`;
@@ -20,14 +24,17 @@ class App extends Component {
     const locations = response.data;
     // console.log("locations: ", locations);
     this.setState({ cityNames: locations.map(location => location.city) });
-    this.setState({ currentCity: this.state.cityNames[0] });
+    // this.setState({ currentCity: this.state.cityNames[0] });
   }
 
   render() {
     return (
       <div className="App">
         <Toolbar cityNames={this.state.cityNames} />
-        <Map currentCity={this.state.currentCity} />
+        <Map 
+          cityNames={this.state.cityNames}
+          selectedCityId={this.state.selectedCityId}
+        />
       </div>
     );
   }

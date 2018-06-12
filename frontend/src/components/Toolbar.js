@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 
 class Toolbar extends Component {
+  
+
+
   citiesArray() {
     return this.props.cityNames.map(cityName => {
       return (
-        <button key={cityName} type="button" className="btn btn-secondary">
+        <button key={cityName} onClick={this.props.onClickCity} type="button" className="btn btn-secondary">
           {cityName}
         </button>
       );
