@@ -15,7 +15,7 @@ class Toolbar extends Component {
     return (
       <div>
         <nav className="navbar navbar-light bg-light">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="">
             5 O'Clock Somewhere
           </a>
         </nav>
