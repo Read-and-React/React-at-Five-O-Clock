@@ -2,10 +2,16 @@ import React, { Component } from "react";
 
 class Toolbar extends Component {
   citiesArray() {
-    return this.props.cityNames.map(cityName => {
+    return this.props.locationsData.map(city => {
       return (
-        <button key={cityName} type="button" className="btn btn-secondary">
-          {cityName}
+        <button
+          key={city.id}
+          id={city.city}
+          type="button"
+          className="btn btn-dark"
+          onClick={this.props.changeCity}
+        >
+          {city.city}
         </button>
       );
     });

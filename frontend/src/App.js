@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cityNames: [],
+      locationsData: [],
       currentCity: "",
       currentLatLng: {}
     };
@@ -21,15 +21,19 @@ class App extends Component {
     const getLocations = `http://localhost:3001/location`;
     const response = await axios.get(getLocations);
     const locations = response.data;
-
-    // Set cityNames
-    this.setState({ cityNames: locations.map(location => location.city) });
-    console.log("cityNames: ", this.state.cityNames);
+    this.setState({ locationsData: locations });
 
     // Set currentCity
-    this.setState({ currentCity: this.state.cityNames[0] });
-    console.log("currentCity: ", this.state.currentCity);
+    this.setCurrentCity();
     this.geocodeCity(this.state.currentCity);
+  }
+
+  setCurrentCity(city) {
+    if (!city) {
+      this.setState({ currentCity: this.state.locationsData[0].city });
+    } else {
+      this.setState({ currentCity: city });
+    }
   }
 
   // Geocode and set cityName
@@ -39,10 +43,22 @@ class App extends Component {
     this.setState({ currentLatLng: latLng });
   }
 
+  // Select currentCity
+  currentCityHandler = async event => {
+    const newCity = await event.target;
+    // console.log("newCity: ", newCity.id);
+    this.setCurrentCity(newCity.id);
+    // console.log("currentCity: ", this.state.currentCity);
+    this.geocodeCity(this.state.currentCity);
+  };
+
   render() {
     return (
       <div className="App">
-        <Toolbar cityNames={this.state.cityNames} />
+        <Toolbar
+          locationsData={this.state.locationsData}
+          changeCity={this.currentCityHandler}
+        />
         <MapView coords={this.state.currentLatLng} />
       </div>
     );
