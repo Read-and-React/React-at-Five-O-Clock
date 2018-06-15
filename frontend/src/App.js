@@ -22,10 +22,12 @@ class App extends Component {
     const response = await axios.get(getLocations);
     const locations = response.data;
     this.setState({ locationsData: locations });
+    console.log(locations);
 
     // Set currentCity
     this.setCurrentCity();
     this.geocodeCity(this.state.currentCity);
+    this.findCityLanguage();
   }
 
   setCurrentCity(city) {
@@ -33,6 +35,7 @@ class App extends Component {
       this.setState({ currentCity: this.state.locationsData[0].city });
     } else {
       this.setState({ currentCity: city });
+      this.findCityLanguage();
     }
   }
 
@@ -41,6 +44,14 @@ class App extends Component {
     const response = await Geocode.fromAddress(this.state.currentCity);
     const latLng = response.results[0].geometry.location;
     this.setState({ currentLatLng: latLng });
+  }
+
+  findCityLanguage() {
+    const city = this.state.currentCity;
+    const language = this.state.locationsData
+      .filter(language => language.city === city)
+      .map(city => city.lang_abbr);
+    console.log(language);
   }
 
   // Select currentCity
