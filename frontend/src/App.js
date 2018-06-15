@@ -3,6 +3,7 @@ import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Toolbar from "./components/Toolbar";
 import MapView from "./components/MapView";
+import Phrase from "./components/Phrase";
 import Geocode from "react-geocode";
 import "./App.css";
 
@@ -12,7 +13,8 @@ class App extends Component {
     this.state = {
       locationsData: [],
       currentCity: "",
-      currentLatLng: {}
+      currentLatLng: {},
+      currentLang: ""
     };
   }
 
@@ -27,7 +29,6 @@ class App extends Component {
     // Set currentCity
     this.setCurrentCity();
     this.geocodeCity(this.state.currentCity);
-    this.findCityLanguage();
   }
 
   setCurrentCity(city) {
@@ -35,8 +36,8 @@ class App extends Component {
       this.setState({ currentCity: this.state.locationsData[0].city });
     } else {
       this.setState({ currentCity: city });
-      this.findCityLanguage();
     }
+    this.findCityLanguage();
   }
 
   // Geocode and set cityName
@@ -51,7 +52,8 @@ class App extends Component {
     const language = this.state.locationsData
       .filter(language => language.city === city)
       .map(city => city.lang_abbr);
-    console.log(language);
+    this.setState({ currentLang: language });
+    // console.log(this.state.currentLang);
   }
 
   // Select currentCity
@@ -71,9 +73,11 @@ class App extends Component {
           changeCity={this.currentCityHandler}
         />
         <MapView coords={this.state.currentLatLng} />
+        <Phrase language={this.state.currentLang} />
       </div>
     );
   }
 }
 
 export default App;
+
