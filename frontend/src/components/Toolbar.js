@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 
 class Toolbar extends Component {
-  
-
 
   citiesArray() {
-    return this.props.cities.map(cityName => {
+    return this.props.locationsData.map(city => {
       return (
-        <button key={cities.id} onClick={this.props.onClickCity} type="button" className="btn btn-secondary">
-          {cityName}
+        <button
+          key={city.id}
+          id={city.city}
+          type="button"
+          className="btn btn-dark"
+          onClick={this.props.changeCity}
+        >
+          {city.city}
+
         </button>
       );
     });
@@ -18,7 +23,7 @@ class Toolbar extends Component {
     return (
       <div>
         <nav className="navbar navbar-light bg-light">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="">
             5 O'Clock Somewhere
           </a>
         </nav>
